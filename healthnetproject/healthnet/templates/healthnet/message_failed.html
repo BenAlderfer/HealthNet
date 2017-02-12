@@ -1,0 +1,22 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Message Failed</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 card">
+            <section id="warning" class="margin-bottom">
+                <legend><h1>Message Failed to Send</h1></legend>
+                <p>Please enter a message.</p>
+            </section>
+            <button onclick="history.back();" class="btn btn-primary">Back</button>
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+{% endblock %}

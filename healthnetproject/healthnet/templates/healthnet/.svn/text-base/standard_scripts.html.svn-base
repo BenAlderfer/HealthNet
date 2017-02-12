@@ -1,0 +1,4 @@
+{% load staticfiles %}
+<script src="{% static 'healthnet/js/jquery-3.1.0.min.js' %}"></script>
+<script src="{% static 'healthnet/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'healthnet/js/notifications.js' %}"></script>

@@ -1,0 +1,150 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>{{hospital.name}} Statistics</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <style>
+        /* hide Highcharts credits */
+        .highcharts-credits {
+            display: none;
+        }
+    </style>
+
+    <div class="card">
+        <legend><h1>
+            System Statistics for {{hospital.name}}
+        </h1></legend>
+
+        <ul style="list-style: none" class="alternating-list pad-children">
+            <li>Total Users: {{users}}</li>
+            <li>Number of Patients: {{patients}}</li>
+            <li>Number of Doctors: {{doctors}}</li>
+            <li>Average Patients per Doctor: {{per_doc | floatformat:2}}</li>
+            <li>Average Visits per Patient: {{appt_per_pat | floatformat:2}}</li>
+            <li>Average Admission Stay Length: {{avg_stay_len.days}} days</li>
+            {% if adm_num %}
+            <li>Most Common Admission Reason: {{adm_reason}}, {{adm_num}} admissions</li>
+            {% else %}
+            <li>Most Common Admission Reason: None</li>
+            {% endif %}
+            {% if prescrip_num %}
+            <li>Most Common Prescribed Medication: {{prescrip_name}}, {{prescrip_num}} prescriptions</li>
+            {% else %}
+            <li>Most Common Prescribed Medication: None</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-lg-6">
+            <div class="card">
+                <div class="centered-row">
+                    <div id="hospital_capacity_circle" class="circle-graph"></div>
+                    <div class="margin-left">
+                        <div class="circle-header">
+                            Hospital Capacity:
+                        </div>
+                        <div class="circle-text">
+                            {{ patients }} / {{ hospital.max_num_patients }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-lg-6">
+            <div class="card">
+                <script src="https://code.highcharts.com/highcharts.js"></script>
+                <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+                <div id="pers_chart" class="pie-chart"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block other_scripts %}
+    {% load staticfiles %}
+    <script src="{% static 'users/js/circle-progress.min.js' %}"></script>
+    <script>
+        $().ready(function () {
+            //build the patients circle chart
+            $('#hospital_capacity_circle').circleProgress({
+                value: '{{ patients }}' / ' {{ hospital.max_num_patients }} ',
+                size: 300,
+                thickness: 45,
+                lineCap: "round",
+                fill: {
+                  gradient: ["#1976D2", "#1976D2"]
+                }
+            });
+
+            //build the perscription pie chart
+            Highcharts.chart('pers_chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Top Prescriptions Prescribed'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Prescriptions',
+                    colorByPoint: true,
+                    data: [{
+                        name: '{{ pres0name }}',
+                        y: parseInt('{{ pres0count }}'),
+                        sliced: true,
+                        selected: true
+                    }, {
+                        name: '{{ pres1name }}',
+                        y: parseInt('{{ pres1count }}')
+                    }, {
+                        name: '{{ pres2name }}',
+                        y: parseInt('{{ pres2count }}')
+                    }, {
+                        name: '{{ pres3name }}',
+                        y: parseInt('{{ pres3count }}')
+                    }, {
+                        name: '{{ pres4name }}',
+                        y: parseInt('{{ pres4count }}')
+                    }]
+                }]
+            });
+
+            //manually hide legend items if no value
+            if (parseInt('{{ pres0count }}') == 0) {
+                $('.highcharts-legend-item.highcharts-pie-series.highcharts-color-0').css('display', 'none');
+            }
+            if (parseInt('{{ pres1count }}') == 0) {
+                $('.highcharts-legend-item.highcharts-pie-series.highcharts-color-1').css('display', 'none');
+            }
+            if (parseInt('{{ pres2count }}') == 0) {
+                $('.highcharts-legend-item.highcharts-pie-series.highcharts-color-2').css('display', 'none');
+            }
+            if (parseInt('{{ pres3count }}') == 0) {
+                $('.highcharts-legend-item.highcharts-pie-series.highcharts-color-3').css('display', 'none');
+            }
+            if (parseInt('{{ pres4count }}') == 0) {
+                $('.highcharts-legend-item.highcharts-pie-series.highcharts-color-4').css('display', 'none');
+            }
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,14 @@
+<!-- show form errors on ajax reload if any -->
+<div id="error_messages">
+    {% if form_errors|length > 0 %}
+        {% for error_item, error_value in form_errors.items %}
+            <div class="alert alert-danger">
+                <div class="margin-left">
+                    <span>Error: {{ error_item }}: {{ error_value }}</span>
+                </div>
+            </div>
+        {% empty %}
+            <p>No form errors detected but something still went wrong.</p>
+        {% endfor %}
+    {% endif %}
+</div>

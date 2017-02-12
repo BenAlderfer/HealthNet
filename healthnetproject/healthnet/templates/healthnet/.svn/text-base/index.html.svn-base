@@ -1,0 +1,23 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>HealthNet</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/just_brand_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <h2>Welcome to HealthNet!</h2>
+        <div class="container">
+            <div class="row">
+                <legend>Already have an account?</legend>
+                <a class="btn btn-primary" href="{% url 'healthnet:login' %}">Login</a>
+            </div>
+            <div class="row">
+                <legend>Don't have one yet? Make an account today:</legend>
+                <a id="pat-register" class="btn btn-success margin-right" href="{% url 'users:insurance_warning' %}">Patient Registration</a>
+                <a id="staff-register" class="btn btn-success" href="{% url 'users:staff_register' %}">Staff Registration</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

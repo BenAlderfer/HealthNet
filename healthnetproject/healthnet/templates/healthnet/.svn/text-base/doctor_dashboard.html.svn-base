@@ -1,0 +1,112 @@
+{% extends 'healthnet/dashboard.html' %}
+{% block dashboard-info %}
+    <!-- approve modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confirm approval</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to approve this doctor?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#modal').modal('hide'); $('#ActiveForm').submit();">Approve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row card-dashboard-row">
+        <div id="patient_list" class="card card-dashboard-cell">
+            <h2>Patients</h2>
+            {% if patient_list %}
+                    <ul>
+                        {% for patient in patient_list %}
+                            <li class="margin-left"><a href="/patient/{{ patient.pk }}">{{ patient.last_name }}, {{patient.first_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>
+                        {% if user.id == page_owner.id %}
+                            <span>You have </span>
+                        {% else %}
+                            <span>Dr. {{ page_owner.last_name }} has </span>
+                        {% endif %}
+                            <span>no Patients right now.</span>
+                    </p>
+                {% endif %}
+        </div>
+        <div id="nurse_list" class="card card-dashboard-cell">
+            <h2>Nurses</h2>
+            {% if nurse_list %}
+                    <ul>
+                        {% for nurse in nurse_list %}
+                            <li class="margin-left"><a href="/nurse/{{ nurse.pk }}">{{ nurse.last_name }}, {{ nurse.first_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>
+                        {% if user.id == page_owner.id %}
+                            <span>You have </span>
+                        {% else %}
+                            <span>Dr. {{ page_owner.last_name }} has </span>
+                        {% endif %}
+                            <span>no Nurses assigned right now.</span>
+                    </p>
+                {% endif %}
+        </div>
+    </div>
+
+    <div class="row card-dashboard-row">
+        <div class="card card-dashboard-cell-half">
+            <div class="horizontal-row-tablet">
+                <div id="doctor_capacity_circle" class="circle-graph"></div>
+                <div class="margin-left">
+                    <div class="circle-header">
+                        Patient Capacity:
+                    </div>
+                    <div class="circle-text">
+                        {{ page_owner.get_num_patients }} / {{ page_owner.max_num_patients }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if isadmin %}
+        {% if activate %}
+            <div class="approval-card">
+               <div id="active">
+                   <form action="" enctype="multipart/form-data" method="post" id="ActiveForm">{% csrf_token %}
+                        <label for="approve" class="">Approve Doctor?</label>
+                        <button type="button" class="btn btn-primary margin-left" id="approve"
+                                data-toggle="modal" data-target="#modal">Approve</button>
+                    </form>
+               </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+{% block other_scripts %}
+    {% load staticfiles %}
+    <script src="{% static 'users/js/circle-progress.min.js' %}"></script>
+    <script>
+        $().ready(function () {
+            $('#doctor_capacity_circle').circleProgress({
+                value: '{{ page_owner.get_num_patients }}' / ' {{ page_owner.max_num_patients }} ',
+                size: 100,
+                thickness: 15,
+                lineCap: "round",
+                fill: {
+                  gradient: ["#1976D2", "#1976D2"]
+                }
+            });
+        });
+    </script>
+{% endblock %}

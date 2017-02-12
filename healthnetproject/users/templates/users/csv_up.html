@@ -1,0 +1,37 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Information Processing</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <legend>Upload CSV Files</legend>
+        <form action="" enctype="multipart/form-data" method="post" id="CSVForm">{% csrf_token %}
+
+            <input type="file" id="csvfile" name="csvfile" size="40">
+
+            <label for="type">Information Type</label>
+            <input type="radio" id="type" name="type" value="patients" checked> Patients
+            <input type="radio" name="type" value="doctors"> Doctors
+            <input type="radio" name="type" value="nurses"> Nurses
+            <input type="radio" name="type" value="records"> Medical Records
+
+            <input type="submit" value="Upload" class="btn btn-primary margin-left">
+        </form>
+
+        <br/>
+
+        <legend>Download CSV Files</legend>
+        <form action="" enctype="multipart/form-data" method="post" id="download">{% csrf_token %}
+            <label for="dtype">Information Type</label>
+            <input type="radio" id="dtype" name="dtype" value="patients" checked> Patients
+            <input type="radio" name="dtype" value="doctors"> Doctors
+            <input type="radio" name="dtype" value="nurses"> Nurses
+            <input type="radio" name="dtype" value="records"> Medical Records
+
+            <input type="submit" value="Download" class="btn btn-primary margin-left">
+        </form>
+    </div>
+{% endblock %}

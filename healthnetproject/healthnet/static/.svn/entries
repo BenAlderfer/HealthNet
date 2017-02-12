@@ -1,0 +1,31 @@
+10
+
+dir
+900
+svn+ssh://abc1234@control.se.rit.edu/home/teams/261/f261-04d/svn/trunk/healthnetproject/healthnet/static
+svn+ssh://abc1234@control.se.rit.edu/home/teams/261/f261-04d/svn
+
+
+
+2016-12-06T05:57:13.123971Z
+895
+jpb2380
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4a9e3e34-743e-11e6-bdcd-bb4f856e3377
+
+healthnet
+dir
+

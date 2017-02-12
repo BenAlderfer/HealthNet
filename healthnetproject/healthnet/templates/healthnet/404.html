@@ -1,0 +1,16 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Permission Denied</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <legend><h1>404: There's Nothing There!</h1></legend>
+        <p>This page popped because you tried to access a page that
+            doesn't exist. That or we lost it. Better losing stuff
+            now than in surgery, right?</p>
+        <p>*We at D-Train Software Solutions do not actually lose pages.</p>
+    </div>
+{% endblock %}

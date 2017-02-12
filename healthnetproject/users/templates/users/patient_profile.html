@@ -1,0 +1,175 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>HealthNet Profile</title>
+{% endblock %}
+{% block other_imports %}
+    <style>
+        #nav-profile {
+            background: #1976D2; /* dark-primary-color */
+        }
+    </style>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <!-- edit profile modal -->
+    <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confirm profile changes</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to save these changes?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#edit_modal').modal('hide'); $('#submit').trigger('click');">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- cancel modal -->
+    <div class="modal fade" id="cancel_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Cancel changes</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to cancel these changes? Anything input will be lost.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#cancel_modal').modal('hide'); location.href='/healthnet/';">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+        <h2>{{user}}'s Profile</h2>
+
+        <form action="" enctype="multipart/form-data" method="post" id="PatientProfileForm">{% csrf_token %}
+            <fieldset>
+                <!-- Personal section -->
+                <legend>Personal Information</legend>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" id="first_name" name="first_name"
+                               placeholder="First Name" class="required"
+                               title="First Name" value="{{user.first_name}}" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name"
+                               placeholder="Last Name" class="required"
+                               title="Last Name" value="{{user.last_name}}" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" placeholder="Email"
+                               class="required" title="Email" value="{{user.email}}"
+                               required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <p><i>As a security measure, changing your password
+                        will require you to log back in. Passwords must be at least
+                        8 characters long.</i></p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password"
+                               placeholder="Password" title="Password" pattern=".{8,}">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="password-confirm">Confirm Password:</label>
+                        <input type="password" id="password-confirm" name="password-confirm"
+                               placeholder="Password" title="Password Confirm" pattern=".{8,}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone Number"
+                                value="{{user.phone}}" title="Phone Number">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="gender">Gender:</label>
+                        <input type="text" id="gender" name="gender" placeholder="Gender"
+                                value="{{user.gender}}" title="How you identify" maxlength="10">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address"
+                               placeholder="1600 Penn. Ave, Washington, DC"
+                               value="{{user.address}}" maxlength="200">
+                    </div>
+                </div>
+            </fieldset>
+            <!-- /Personal Section -->
+            <!-- Optional Section -->
+            <fieldset>
+                <legend>Emergency Contact</legend>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="e_first_name">First Name:</label>
+                        <input type="text" id="e_first_name"
+                               name="e_first_name" placeholder="Contact's First Name"
+                                value="{{user.e_first_name}}" title="Emergency Contact's First Name">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="e_last_name">Last Name:</label>
+                        <input type="text" id="e_last_name"
+                               name="e_last_name" placeholder="Contact's Last Name"
+                                value="{{user.e_last_name}}" title="Emergency Contact's Last Name">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="e_phone">Phone Number:</label>
+                        <input type="tel" id="e_phone" name="e_phone"
+                               placeholder="Contact's Phone #"
+                                value="{{user.e_phone}}" title="Emergency Contact's Phone Number">
+                    </div>
+                </div>
+            </fieldset>
+            <!-- /Optional Section -->
+
+            <div class="btn btn-danger margin-right" data-toggle="modal" data-target="#cancel_modal">Cancel</div>
+            <button type="button" class="btn btn-primary" onclick="toggleModal();">Save</button>
+
+            <!-- hidden submit button just for validation -->
+            <input type="submit" value="Submit" id="submit" class="btn btn-primary" style="display: none;">
+        </form>
+    </div>
+{% endblock %}
+{% block other_scripts %}
+    {% load staticfiles %}
+    <script src="{% static 'users/js/jquery.mask.min.js' %}"></script>
+    <script>
+        $("#phone").mask("(999) 999-9999");
+        $("#e_phone").mask("(999) 999-9999");
+
+        function toggleModal() {
+            //if form is valid, show modal
+            //otherwise, simulate click to show errors
+            if ($('#PatientProfileForm')[0].checkValidity()) {
+                $('#edit_modal').modal();
+            } else {
+                $('#submit').trigger('click');
+            }
+        }
+    </script>
+{% endblock %}

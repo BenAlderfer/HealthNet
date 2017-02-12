@@ -1,0 +1,127 @@
+{% extends 'healthnet/dashboard.html' %}
+{% block specific_user_info %}
+    <p>Doctor:
+        <a href="/calendar/{{page_owner.dr.pk}}/">Dr. {{ page_owner.dr.first_name }} {{ page_owner.dr.last_name }}</a>
+    </p>
+    {% if page_owner.admitted %}
+        <p><b>Currently admitted at: </b> {{ page_owner.admitted }}</p>
+        <p><b>Currently admitted to: </b> {{ page_owner.admitted_dr }}</p>
+        {% if can_transfer %}
+            <a href="/emr/add_transfer/{{ page_owner.id }}" class="btn btn-primary">Transfer hospitals</a><b> | </b>
+        {%endif%}
+        {% if can_discharge %}
+            <a href="/emr/add_discharge/{{ page_owner.id }}" class="btn btn-primary">Discharge from hospital</a>
+        {% endif %}
+    {% else %}
+        {% if can_admit %}
+            <a href="/emr/add_admission/{{ page_owner.id }}" class="btn btn-primary">Admit to hospital</a>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+{% block dashboard-info %}
+    <section class="row" style="margin: 0 -10px 0 0;">
+        <div class="card">
+            <b>Full Electronic Medical Record: </b>
+            <a href="/emr/{{ page_owner.id }}" class="btn btn-primary margin-left">View</a>
+        </div>
+    </section>
+    <section class="row card-dashboard-row card-dashboard-patient-bottom" >
+        <div id="vitals" class="card card-dashboard-cell">
+            <h2>Vitals</h2>
+            {% if not is_patient %}
+                <a href="/emr/new_vital/{{ page_owner.id }}" class="btn btn-success margin-bottom">Add Vital</a>
+            {% endif %}
+                {% if vital_list %}
+                    <ul>
+                        {% for vital in vital_list %}
+                            <li class="margin-left">
+                                {% if vital.blood_pressure_str %}
+                                    <span><b>Blood Pressure: </b>{{ vital.blood_pressure_str }}<br></span>
+                                {% endif %}
+                                {% if vital.cholesterol %}
+                                    <span><b>Cholesterol: </b>{{ vital.cholesterol }} mg/dl<br></span>
+                                {% endif %}
+                                {% if vital.height %}
+                                    <span><b>Height: </b>{{ vital.height }} in<br></span>
+                                {% endif %}
+                                {% if vital.weight %}
+                                    <span><b>Weight: </b>{{ vital.weight }} lbs<br></span>
+                                {% endif %}
+                                {% if vital.heart_rate %}
+                                    <span><b>Heart Rate: </b>{{ vital.heart_rate }} bpm<br></span>
+                                {% endif %}
+                                {% if vital.date_time %}
+                                    <span><b>Date Taken: </b>{{ vital.date_time }}<br></span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No vitals to display.</p>
+                {% endif %}
+                <a href="/emr/vitals/{{ page_owner.id }}/" class="btn btn-primary margin-top">View All Vitals</a>
+        </div>
+        <div id="tests" class="card card-dashboard-cell card-dashboard-patient-bottom">
+            <h2>Tests</h2>
+
+            {% if not is_patient %}
+                <a href="/emr/new_test/{{ page_owner.id }}" class="btn btn-success margin-bottom">Add Test</a>
+            {% endif %}
+                {% if test_list %}
+                    <ul>
+                        {% for test in test_list %}
+                            <li class="margin-left">
+                                <span><b>Description: </b>{{ test.description }}</span><br/>
+                                <span><b>Result: </b>{{ test.result }}</span><br/>
+                                <span><b>Date Taken: </b>{{ test.date_time }}</span><br/>
+                                <span><b>Image: </b>
+                                {% if test.image %}
+                                    <a href="/emr/test_image/{{test.pk}}" target="_blank">View</a>
+                                {% else %}
+                                    No Image
+                                {% endif %}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No tests to display.</p>
+                {% endif %}
+            <a href="/emr/tests/{{ page_owner.id }}/" class="btn btn-primary margin-top">View All Tests</a>
+        </div>
+        <div id="prescriptions" class="card card-dashboard-cell card-dashboard-patient-bottom">
+            <h2>Prescriptions</h2>
+            {% if not is_patient %}
+                <a href="/emr/new_prescription/{{ page_owner.id }}" class="btn btn-success margin-bottom">Add Prescription</a>
+            {% endif %}
+                {% if prescription_list %}
+                    <ul>
+                        {% for pres in prescription_list %}
+                            <li class="margin-left">
+                                <b>{{ pres.name }} </b>{{ pres.dosage_str }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No prescriptions to display.</p>
+                {% endif %}
+            <a href="/emr/prescriptions/{{ page_owner.id }}/" class="btn btn-primary margin-top">View All Prescriptions</a>
+        </div>
+        <div id="notes" class="card card-dashboard-cell card-dashboard-patient-bottom">
+            <h2>Notes</h2>
+            {% if not is_patient %}
+                <a href="/emr/new_note/{{ page_owner.id }}" class="btn btn-success margin-bottom">Add Note</a>
+            {% endif %}
+                {% if note_list %}
+                    <ul>
+                        {% for note in note_list %}
+                            <li class="margin-left">{{ note.message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No notes to display.</p>
+                {% endif %}
+            <a href="/emr/notes/{{ page_owner.id }}/" class="btn btn-primary margin-top">View All Notes</a>
+        </div>
+    </section>
+{% endblock %}

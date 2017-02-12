@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8' />
+    {% block title %}
+    {% endblock %}
+
+    {% block other_imports %}
+    {% endblock %}
+
+    {% load staticfiles %}
+    {% include "healthnet/imports.html" %}
+
+    {% block customizations %}
+    {% endblock %}
+</head>
+<body>
+    {% block nav %}
+    {% endblock %}
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <footer>
+        {% block footer %}
+        {% endblock %}
+    </footer>
+
+    {% include "healthnet/standard_scripts.html" %}
+    {% block other_scripts %}
+    {% endblock %}
+</body>
+</html>

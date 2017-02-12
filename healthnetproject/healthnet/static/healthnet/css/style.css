@@ -1,0 +1,346 @@
+/* designed mobile first (media queries used for larger devices) */
+
+/* color palette */
+.dark-primary-color    { background: #1976D2; }
+.default-primary-color { background: #2196F3; }
+.light-primary-color   { background: #BBDEFB; }
+
+.background-color    { background: #E0E0E0; }
+.card-background-color    { background: #FFFFFF; }
+
+.header-text-color    { color: #FFFFFF; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+
+.accent-color          { background: #FF5252; }
+.divider-color         { border-color: #BDBDBD; }
+
+/* reset margins and padding */
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Roboto, Arial, sans-serif;
+}
+
+/* disable horizontal scrolling */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+	background: #E0E0E0; /* background-color  */
+}
+
+/* navbar */
+#navbar-custom {
+	background: #2196F3; /* default-primary-color */
+    color: white; /* header-text-color  */
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 2px 3px #888888;
+    overflow: visible;
+}
+
+/* brand, links, and dropdowns */
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav li,
+.navbar-inverse .navbar-nav > li > a {
+    color: white; /* header-text-color  */
+}
+
+/* show accent color on hover */
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav li:hover,
+.navbar-inverse .navbar-nav > li > a:hover {
+    background: #FF5252; /* accent-color  */
+}
+
+/* mobile navbar dropdown items */
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: white; /* header-text-color  */
+}
+
+/* notification hover color */
+.notif_line:hover, .notif_item:hover {
+    background: #E0E0E0 !important; /* background color */
+}
+
+.notif_item{
+    word-wrap: break-word;
+}
+
+.notif_message{
+    width: 450px;
+}
+
+/* navbar toggle button (hamburger menu) */
+.navbar-inverse .navbar-toggle {
+    background: #2196F3; /* default-primary-color */
+    border: none;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+    background: #1976D2; /* dark-primary-color */
+}
+
+/* active link */
+.navbar-inverse .navbar-nav > .active > a {
+    background: #1976D2; /* dark-primary-color */
+    color: white; /* header-text-color  */
+}
+
+/* open dropdown menu */
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background: #2196F3; /* default-primary-color */
+}
+
+/* Small Desktops */
+@media only screen and (min-width : 768px) {
+    /* desktop navbar dropdown items */
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #212121; /* primary-text-color */
+    }
+
+    #navbar-custom *:not(.navbar-brand) {
+        font-size: 2rem;
+    }
+
+    .navbar-brand {
+        font-size: 2.5rem;
+    }
+}
+
+.card {
+    padding: 20px;
+    margin: 10px;
+    background: #FFFFFF; /* card background color */
+    box-shadow: 0 2px 3px #888888;
+    border-radius: 3px;
+    z-index: 5;
+}
+
+.approval-card {
+    padding: 20px;
+    margin: 10px;
+    background: #FFFFFF; /* card background color */
+    box-shadow: 0 2px 3px #888888;
+    border-radius: 3px;
+    z-index: 5;
+}
+
+@media only screen and (min-width : 768px) {
+    .approval-card {
+        width: 22%;
+        margin: 10px auto;
+    }
+}
+
+.card-dashboard-row {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 !important;
+}
+
+.card-dashboard-cell {
+    flex: 1;
+}
+
+.card-dashboard-patient-bottom {
+    min-width: 25%;
+    word-wrap: break-word;
+}
+
+@media only screen and (min-width : 768px) {
+    .card-dashboard-row {
+        flex-direction: row;
+    }
+
+    .card-dashboard-cell {
+        margin-right: 10px !important;
+    }
+
+    .card-dashboard-cell-half {
+        padding: 0;
+        width: 50%;
+    }
+
+    /* last child does not have right margin */
+    .card-dashboard-row .card-dashboard-cell:last-child {
+        margin-right: 0 !important;
+    }
+}
+
+@media only screen and (min-width : 768px) {
+    .dashboard-third-card {
+        box-sizing: border-box;
+        max-width: 32%;
+    }
+}
+
+/* special case for nurse's doctor list */
+.nurse-doctors {
+
+}
+
+@media only screen and (min-width : 768px) {
+    .nurse-doctors {
+        margin-right: 0;
+    }
+}
+
+.row {
+    margin-bottom: 40px;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+input {
+    border: none;
+    border-bottom: solid 1px #E0E0E0;
+    padding: 10px;
+}
+
+input[type="radio"] {
+    margin-left: 20px;
+}
+
+.btn-primary, .btn-danger, .btn-success {
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 1px 2px 3px #888888;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.margin-right {
+    margin-right: 20px;
+}
+
+.margin-left {
+    margin-left: 20px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.centered {
+    float: none;
+    margin: auto;
+    text-align: center;
+}
+
+/* unbold radio labels */
+.radio_desc {
+    font-weight: normal;
+}
+
+.text_area_input{
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.alternating-list {
+    list-style: none;
+}
+
+.alternating-list li:nth-child(even) {
+    background-color: #E0E0E0;
+}
+
+.alternating-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.alternating-table td {
+    padding: 10px;
+    max-width: 25%;
+    word-wrap: break-word;
+}
+
+.alternating-table th{
+    padding: 10px;
+}
+
+.alternating-table tr:nth-child(even) {
+    background-color: #E0E0E0;
+}
+
+.emr-line {
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+textarea {
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.pad-children > * {
+    padding: 10px;
+}
+
+/* log page number */
+.page-indicator {
+    font-size: 15pt;
+}
+
+/* force horizontal row  on tablet and up */
+@media only screen and (min-width : 600px) {
+    .horizontal-row-tablet {
+        white-space:nowrap;
+    }
+
+    .horizontal-row-tablet > * {
+        clear: both;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+/* stats page */
+.circle-graph {
+    padding: 10px;
+}
+
+.circle-header {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.circle-text {
+    font-size: 16pt;
+}
+
+@media only screen and (min-width : 768px) {
+    .circle-header {
+        font-size: 21pt;
+    }
+
+    .circle-text {
+        font-size: 20pt;
+    }
+}
+
+.error-message {
+    margin-bottom: 0;
+}
+
+.pie-chart {
+    min-width: 310px;
+    height: 400px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.centered-row * {
+    margin: auto;
+    text-align: center;
+}

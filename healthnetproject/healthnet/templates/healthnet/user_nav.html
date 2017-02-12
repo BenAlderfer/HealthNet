@@ -1,0 +1,51 @@
+<nav class="navbar navbar-inverse" id="navbar-custom">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-items" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/healthnet/">HealthNet</a>
+      </div>
+
+      <!-- Links and dropdowns -->
+      <div class="collapse navbar-collapse" id="navbar-items">
+        <ul class="nav navbar-nav navbar-right">
+            {% if is_staff %}
+                {% if notif_list|length > 0 %}
+                    <li id="notif_button" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                        role="button" aria-haspopup="true" aria-expanded="false" style="white-space:nowrap;"
+                        title="Notifications">
+                        <i class="fa fa-bell" aria-hidden="true" id="notif_bell"></i>
+                        <span id="notif_text"> {{ notif_list|length }}</span>
+                    </a>
+                    <!-- the notification list -->
+                    <table id="notif_menu" class="dropdown-menu dropdown-menu-left"
+                           style="white-space: normal; padding: 10px; width: 600px !important;">
+                        {% for notif in notif_list %}
+                            <tr class="notif_line" id="notif_{{ notif.pk }}">
+                                <td><a class="notif_item notif_message" style="color: #212121;"
+                                    href="{{ notif.related_action }}">{{ notif.message }}</a></td>
+                                {% if not "transfer" in notif.related_action %}
+                                <td><a class="btn btn-default notif_item margin-left"
+                                       onclick="dismiss_notification({{ notif.pk }});">Dismiss</a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    </li>
+                {% endif %}
+                <li><a href="/send_message/{{user.pk}}" id="send-message">Send Message</a></li>
+            {% endif %}
+            <li><a href="/healthnet/" id="nav-dashboard">Dashboard</a></li>
+            <li><a href="/calendar/{{user.pk}}" id="nav-calendar">Calendar</a></li>
+            <li><a href="/users/profile" id="nav-profile">Profile</a></li>
+            <li><a href="/healthnet/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+</nav>

@@ -1,0 +1,295 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Doctor Management</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+<!-- hospital modals -->
+    <!-- delete hospital modal -->
+    <div class="modal fade" id="delete_modal1" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Delete hospital</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this hospital?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#delete_modal1').modal('hide'); $('#submit2').trigger('click');">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- add modal -->
+    <div class="modal fade" id="add_modal1" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add hospital</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to add this hospital?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#add_modal1').modal('hide'); $('#submit1').trigger('click');">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- patient modals -->
+    <!-- add modal -->
+    <div class="modal fade" id="add_modal2" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add patient</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to add this patient?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#add_modal2').modal('hide'); $('#submit3').trigger('click');">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- nurse modals -->
+    <!-- delete hospital modal -->
+    <div class="modal fade" id="delete_modal3" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Delete nurse</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this nurse?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#delete_modal3').modal('hide'); $('#submit6').trigger('click');">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- add modal -->
+    <div class="modal fade" id="add_modal3" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add nurse</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to add this nurse?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#add_modal3').modal('hide'); $('#submit5').trigger('click');">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+        <legend><h1>Doctor Management for Dr. {{doctor.first_name}} {{doctor.last_name}}</h1></legend>
+        <form action="" enctype="multipart/form-data" method="post" id="add_hosp">{% csrf_token %}
+              <fieldset>
+                <legend>Hospitals</legend>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <select class="form-control" id="+hospital" name="+hospital" required>
+                            {% for hospital in hosp_unassigned %}
+                                <option value="{{ hospital.pk }}">{{ hospital }}</option>
+                            {% empty %}
+                                <option value="">No Hospitals are available.</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="toggleAddModalHospital();">Add Hospital</button>
+
+                    <!-- hidden submit button just for validation -->
+                    <input type="submit" value="Submit" id="submit1" class="btn btn-primary" style="display: none;">
+                </div>
+               </fieldset>
+        </form>
+        <legend><h4>Current Hospitals</h4></legend>
+        <form action="" enctype="multipart/form-data" method="post" id="sub_hosp">{% csrf_token %}
+              <fieldset>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <select class="form-control" id="-hospital" name="-hospital" required>
+                            {% for hospital in hosp_assigned %}
+                                <option value="{{ hospital.pk }}">{{ hospital }}</option>
+                            {% empty %}
+                                <option value="">No Hospitals are available.</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="toggleDeleteModalHospital();">Remove Hospital</button>
+
+                    <!-- hidden submit button just for validation -->
+                    <input type="submit" value="Submit" id="submit2" class="btn btn-primary" style="display: none;">
+                </div>
+               </fieldset>
+        </form>
+    </div>
+
+    <div class="card">
+        <form action="" enctype="multipart/form-data" method="post" id="add_pat">{% csrf_token %}
+              <fieldset>
+                <legend>Patients</legend>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <select class="form-control" id="+patient" name="+patient" required>
+                            {% for patient in pat_unassigned %}
+                                <option value="{{ patient.pk }}">{{ patient }}</option>
+                            {% empty %}
+                                <option value="">No Patients are available.</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="toggleAddModalPatient();">Add Patient</button>
+
+                    <!-- hidden submit button just for validation -->
+                    <input type="submit" value="Submit" id="submit3" class="btn btn-primary" style="display: none;">
+                </div>
+               </fieldset>
+        </form>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        Number of Patients: {{num_patients}}
+        <form action="" enctype="multipart/form-data" method="post" id="num_pat">{% csrf_token %}
+              <fieldset>
+                    <label for="maximum">Maximum: </label>
+                    <input type="number" step="1" id="maximum" name="maximum"
+                           value="{{doctor.max_num_patients}}"
+                           min="1" max="100">
+                    <input type="submit" value="Submit" class="btn btn-primary margin-left">
+               </fieldset>
+        </form>
+                </br><label for="maximum">Patient List: </label>
+                    {% for patient in pat_assigned %}
+                        </br>{{ patient }}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <form action="" enctype="multipart/form-data" method="post" id="add_nur">{% csrf_token %}
+              <fieldset>
+                <legend>Nurses</legend>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <select class="form-control" id="+nurse" name="+nurse" required>
+                            {% for nurse in nur_unassigned %}
+                                <option value="{{ nurse.pk }}">{{ nurse }}</option>
+                            {% empty %}
+                                <option value="">No Nurses are available.</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="toggleAddModalNurse();">Add Nurse</button>
+
+                    <!-- hidden submit button just for validation -->
+                    <input type="submit" value="Submit" id="submit5" class="btn btn-primary" style="display: none;">
+                </div>
+               </fieldset>
+        </form>
+        <legend><h4>Current Nurses</h4></legend>
+        <form action="" enctype="multipart/form-data" method="post" id="sub_nur">{% csrf_token %}
+              <fieldset>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <select class="form-control" id="-nurse" name="-nurse" required>
+                            {% for nurse in nur_assigned %}
+                                <option value="{{ nurse.pk }}">{{ nurse }}</option>
+                            {% empty %}
+                                <option value="">No Nurses are available.</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="toggleDeleteModalNurse();">Remove Nurse</button>
+
+                    <!-- hidden submit button just for validation -->
+                    <input type="submit" value="Submit" id="submit6" class="btn btn-primary" style="display: none;">
+                </div>
+               </fieldset>
+        </form>
+    </div>
+{% endblock %}
+{% block other_scripts %}
+    <script>
+        function toggleAddModalHospital() {
+            //if form is valid, show modal
+            //otherwise, simulate click to show errors
+            if ($('#add_hosp')[0].checkValidity()) {
+                $('#add_modal1').modal();
+            } else {
+                $('#submit1').trigger('click');
+            }
+        }
+        function toggleDeleteModalHospital() {
+            //if form is valid, show modal
+            //otherwise, simulate click to show errors
+            if ($('#sub_hosp')[0].checkValidity()) {
+                $('#delete_modal1').modal();
+            } else {
+                $('#submit2').trigger('click');
+            }
+        }
+
+        function toggleAddModalPatient() {
+            //if form is valid, show modal
+            //otherwise, simulate click to show errors
+            if ($('#add_pat')[0].checkValidity()) {
+                $('#add_modal2').modal();
+            } else {
+                $('#submit3').trigger('click');
+            }
+        }
+
+        function toggleAddModalNurse() {
+            //if form is valid, show modal
+            //otherwise, simulate click to show errors
+            if ($('#add_nur')[0].checkValidity()) {
+                $('#add_modal3').modal();
+            } else {
+                $('#submit5').trigger('click');
+            }
+        }
+        function toggleDeleteModalNurse() {
+            //if form is valid, show modal
+            //otherwise, simulate click to show errors
+            if ($('#sub_nur')[0].checkValidity()) {
+                $('#delete_modal3').modal();
+            } else {
+                $('#submit6').trigger('click');
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'healthnet/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'healthnet/css/style.css' %}" media="screen">
+
+{% if form_errors|length > 0 %}
+    {% for error_item, error_value in form_errors.items %}
+        <div class="alert alert-danger">
+            <div class="margin-left">
+                <p>Error: {{ error_item }}: {{ error_value }}<p>
+            </div>
+        </div>
+    {% empty %}
+        <p>No form errors detected but something still went wrong.</p>
+    {% endfor %}
+{% endif %}

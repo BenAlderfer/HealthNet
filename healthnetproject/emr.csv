@@ -1,0 +1,19 @@
+Vital,abbott@health.net,60,150,120/90,60,180
+Vital,bennett@health.net,55,130,110/85,54,150
+Vital,boulet@health.net,58,140,58,62,177
+Prescription,abbott@health.net,Amoxicillin,50,250,mg
+Prescription,abbott@health.net,Alprazolam,25,2,mg
+Prescription,abbott@health.net,Codeine,40,30,mg
+Prescription,reece@health.net,Amoxicillin,50,250,mg
+Prescription,reece@health.net,Aktipak,15,50,mg
+Prescription,reece@health.net,Oxycodone,20,15,mg
+Prescription,bennett@health.net,Amoxicillin,40,125,mg
+Prescription,bennett@health.net,Pasireotide Diasparate,30,100,mg
+Prescription,bennett@health.net,Proctofoam,25,60,mg
+Prescription,boulet@health.net,Amoxicillin,40,125,mg
+Prescription,boulet@health.net,Morphine,35,30,mg
+Prescription,boulet@health.net,Vicadin,30,25,mg
+Test,abbott@health.net,Bacterial culture,Size of e. coli colonies dramatically reduced\,illness reported to be improving,Amoxicillin regimen is effective and should be continued,true,
+Test,bennett@health.net,Thyroid hormone sample,Thyroxine levels found to be normal (14.2 mcg/dl),Diagnostic hypothesis of hyperthyroidism rejected,true,
+Test,reece@health.net,Left leg X-ray imaging,X-rays show a clean break in the left leg,Bone should be reset and cast for a minimum of three months,true,media/uploads/tests/bennett_leg_xray.jpg,
+Test,boulet@health.net,Colonoscopy,Small polyps found in intestinal lining,Results should be withheld from patient until further test results come back to confirm or reject malignancy,false,

@@ -1,0 +1,24 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Permission Denied</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 card">
+            <section id="warning" class="margin-bottom">
+                <h1>Missing required personal information</h1>
+                <p>In addition to the standard profile information, all patients
+                must record their address and phone number in the system prior to
+                scheduling appointments. Proceed to your profile page to do this.</p>
+            </section>
+            <a href="/users/profile/" class="btn btn-primary">Return to Profile</a>
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+{% endblock %}

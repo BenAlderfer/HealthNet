@@ -1,0 +1,26 @@
+html, body, body.login {
+    background: #E0E0E0;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+#header {
+    background: #1976D2;
+    color: white;
+}
+
+.btn-primary {
+    background: #2196F3;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 1px 2px 3px #888888;
+}
+
+.login #container {
+    background: #FFFFFF; /* card background color */
+    box-shadow: 0 2px 3px #888888;
+    border-radius: 3px;
+}

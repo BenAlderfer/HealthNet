@@ -1,0 +1,34 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>HealthNet</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/just_brand_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 card">
+            <section id="message-block" class="margin-bottom">
+                <p>There was an error while submitting.</p>
+                <div class="container">
+                    {% for error_item, error_value in form_errors.items %}
+                        <ul>
+                            <li>Error: {{ error_item }}: {{ error_value }}</li>
+                        </ul>
+                    {% empty %}
+                        <p>No form errors detected but something still went wrong.</p>
+                    {% endfor %}
+                </div>
+                <p>
+                    The form failed to submit. Please try again and contact an
+                    administrator if it wrongfully fails.
+                </p>
+            </section>
+            <button onclick="history.back();" class="btn btn-primary">Go back</button>
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,98 @@
+/* calendar top buttons */
+.fc .fc-toolbar>*>* {
+    margin: 0 .5em 0 .5em;
+}
+/* header middle section */
+.fc-toolbar .fc-center {
+    position: absolute;
+    left: 50%;
+}
+/* regular buttons */
+.fc-state-default {
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+}
+/* add appointment button */
+.fc-addAppointment-button {
+    background: #5cb85c;
+    border-color: #4cae4c;
+}
+/* event item */
+.fc-day-grid-event .fc-content, .fc-event, .fc-event-dot {
+    background: #2196F3 !important;
+    cursor: pointer;
+}
+
+/* day block */
+td {
+    cursor: pointer;
+    background: white;
+}
+td:hover {
+    background: #BBDEFB;
+}
+/* destyle things that shouldn't be clicked */
+/* day headers */
+.fc-head-container {
+    cursor: default;
+}
+.fc-head-container:hover {
+    background: white;
+}
+/* day view times */
+.fc-time {
+    cursor: default;
+}
+.fc-time:hover {
+    background: white;
+}
+
+.container {
+    width: 100%;
+}
+
+.fc-toolbar {
+    padding-bottom: 80px;
+}
+.fc-center {
+    margin-top: 80px;
+}
+
+/* when the view types drop down */
+@media only screen and (min-width : 458px) {
+    .fc-toolbar {
+        padding-bottom: 40px;
+    }
+    .fc-center {
+        margin-top: 40px;
+    }
+}
+
+/* small desktops */
+@media only screen and (min-width : 768px) {
+    .container {
+        width: 100%;
+    }
+}
+
+/* when the calendar title starts to overlap */
+@media only screen and (min-width : 810px) {
+    .fc-toolbar {
+        padding-bottom: 0;
+    }
+    .fc-center {
+        margin-top: 0;
+    }
+}
+
+/* Normal Desktops */
+@media only screen and (min-width : 1024px) {
+    .container {
+        width: 80%;
+    }
+}
+
+#notif_menu td:hover {
+    background: #E0E0E0 !important; /* background color */
+}

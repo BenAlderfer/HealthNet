@@ -1,0 +1,25 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>HealthNet</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/just_brand_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 card">
+            <section id="warning" class="margin-bottom">
+                <p>You have successfully registered.</p>
+                <p>
+                    You are now ready to get started. Please return to the
+                    homepage and log in.
+                </p>
+            </section>
+             <a href="/" class="btn btn-primary">Return to homepage</a>
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+{% endblock %}

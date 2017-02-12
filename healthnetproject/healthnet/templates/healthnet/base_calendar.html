@@ -1,0 +1,46 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>HealthNet Calendar</title>
+{% endblock %}
+{% block customizations %}
+    {% load staticfiles %}
+    <link rel='stylesheet' href="{% static 'healthnet/css/fullcalendar.min.css' %}"/>
+    <link rel='stylesheet' href="{% static 'healthnet/css/base_calendar.css' %}"/>
+    <style>
+        {% if user.id == page_owner.id %}
+        #nav-calendar {
+            background: #1976D2; /* dark-primary-color */
+        }
+        {% endif %}
+    </style>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <div style="width:100%; text-align: center;">
+            <legend><h1>
+                {% if user.id == page_owner.id %}
+                    <span>Your </span>
+                {% else %}
+                    <span>{{ page_owner.first_name }} {{ page_owner.last_name }}'s </span>
+                {% endif %}
+            Calendar
+            </h1></legend>
+        </div>
+        <div id="calendar"></div> <!-- this is the calendar, it is transformed and populated in base_calendar.js -->
+    </div>
+{% endblock %}
+{% block footer %}
+    <!-- this is just inside body>footer -->
+{% endblock %}
+{% block other_scripts %}
+    <script src="{% static 'healthnet/js/moment.min.js' %}"></script>
+    <script src="{% static 'healthnet/js/fullcalendar.min.js' %}"></script>
+    <script src="{% static 'healthnet/js/base_calendar.js' %}"></script>
+    <script type="text/javascript">
+        setPK('{{ pk }}');
+        setDefaultView('{{ user_type }}');
+    </script>
+{% endblock %}

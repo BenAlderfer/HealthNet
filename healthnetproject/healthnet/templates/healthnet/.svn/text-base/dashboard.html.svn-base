@@ -1,0 +1,96 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    {% if user.id == page_owner.id %}
+        <title>Dashboard</title>
+    {% else %}
+        <title>User Page: {{ page_owner }}</title>
+    {% endif %}
+{% endblock %}
+{% block other_imports %}
+    <style>
+        {% if user.id == page_owner.id %}
+        #nav-dashboard {
+            background: #1976D2; /* dark-primary-color */
+        }
+        {% endif %}
+    </style>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="row card-dashboard-row">
+        {% block user_info %}
+            <div id="user_info" class="card card-dashboard-cell">
+                <h1>
+                    {% if user.id == page_owner.id %}
+                        <span>Welcome, </span>
+                    {% endif %}
+                    <span>{{ page_owner.first_name }} {{ page_owner.last_name }}</span>
+                </h1>
+                <h3>
+                    {% if user.id == page_owner.id %}
+                        <span>Your Dashboard</span>
+                    {% else %}
+                        <span>User Page</span>
+                    {% endif %}
+                </h3>
+
+                {% if hospitals_list %}
+                <p>Hospitals: </p>
+                <ul>
+                    {% for hosp in hospitals_list %}
+                        <li class="margin-left">{{hosp.name}}</li>
+                    {% endfor %}
+                </ul>
+                    {% if isadmin %}
+                        <a href="/users/manage/{{page_owner.pk}}" class="btn btn-primary margin-top">Manage Doctor</a>
+                    {% endif %}
+                {% else %}
+                    <p>Hospital: {{ page_owner.hospital }}</p>
+                {% endif %}
+
+                {% block specific_user_info %}
+                {%  endblock %}
+                {% if user.id == page_owner.id %}
+
+                    <a href="/users/profile" class="btn btn-primary margin-right margin-top">View Full Profile</a>
+
+                    {% if doctor_list or nurse_list or hospitals_list %}
+                        <a href="/users/patients" class="btn btn-primary margin-right margin-top">Patient Directory</a>
+                    {% endif %}
+                    {% if isadmin %}
+                        <a href="/users/upload" class="btn btn-primary margin-top">Upload/Download Records</a><br />
+                    {% endif %}
+
+                {% endif %}
+            </div>
+        {% endblock %}
+        {% block upcoming_events %}
+            <div id="upcoming_events" class="card card-dashboard-cell">
+                <h1>Upcoming Events</h1>
+                {% if appt_list %}
+                <ul>
+                    {% for appt in appt_list %}
+                        <li class="margin-left">
+                            <span><b>Appointment: </b>{{ appt.date_time }}, </span>
+                            <span>{{ appt.patient }}, with Dr. {{ appt.doctor }}, </span>
+                            <span> at {{ appt.hospital }}</span>
+                            <a href="/edit_appointment/{{ appt.pk }}"> -- Edit</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p>No upcoming events</p>
+                {% endif %}
+                <a href="/calendar/{{page_owner.pk}}" class="btn btn-primary margin-top">Go to Calendar</a>
+            </div>
+        {% endblock %}
+    </div>
+    <div class="row">
+        <div class="container">
+            {% block dashboard-info %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

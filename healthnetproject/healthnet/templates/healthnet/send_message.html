@@ -1,0 +1,98 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Send Message</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <!-- Send message modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confirm Message</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to send this message?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#modal').modal('hide'); $('#submit').trigger('click');">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- cancel modal -->
+    <div class="modal fade" id="cancel_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Cancel changes</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to cancel these changes? Anything input will be lost.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#cancel_modal').modal('hide'); history.back();">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+        <h2>Enter Message</h2>
+        <form action="" enctype="multipart/form-data" method="post" id="MessageForm">{% csrf_token %}
+            <fieldset>
+                <legend>Message</legend>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <textarea id="message" name="message" class="text_area_input"
+                                placeholder="enter message here"
+                                title="message" maxlength="500" required></textarea>
+                        </div>
+                    </div>
+            </fieldset>
+            <fieldset>
+                <legend>Recipient</legend>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="receiver">Select Recipient:</label>
+                        <select class="form-control margin-bottom" id="receiver" name="receiver" required>
+                            {% for staff in staff_list %}
+                                <option value="{{ staff.pk }}">{{ staff }}</option>
+                            {% empty %}
+                                <option>No Users are available.</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+            </fieldset>
+
+            <div class="btn btn-danger margin-right" data-toggle="modal" data-target="#cancel_modal">Cancel</div>
+            <button type="button" class="btn btn-primary" onclick="toggleModal();">Send</button>
+
+            <!-- hidden submit button just for validation -->
+            <input type="submit" value="Submit" id="submit" class="btn btn-primary" style="display: none;">
+        </form>
+    </div>
+{% endblock %}
+{% block other_scripts %}
+    <script>
+        function toggleModal() {
+            //if form is valid, show modal
+            //otherwise, simulate click to show errors
+            if ($('#MessageForm')[0].checkValidity()) {
+                $('#modal').modal();
+            } else {
+                $('#submit').trigger('click');
+            }
+        }
+    </script>
+{% endblock %}

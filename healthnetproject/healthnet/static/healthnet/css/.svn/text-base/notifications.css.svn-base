@@ -1,0 +1,33 @@
+#notif_button.open > a {
+    background: #FF5252 !important;
+}
+
+/* bell symbol */
+#notif_bell {
+    z-index: 2;
+}
+
+#notif_menu {
+    height: auto;
+    max-height: 500px;
+    overflow-x: hidden;
+}
+
+/* notification count text */
+#notif_text {
+    display: inline-block;
+    z-index: 3;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    word-wrap: break-word;
+}
+
+/* the line containing the text and button */
+.notif_line {
+    padding: 10px;
+}
+
+.notif_item {
+    display: inline-block;
+}

@@ -1,0 +1,65 @@
+{% extends 'admin/login.html' %}
+{% block title %}
+   HealthNet Login
+{% endblock %}
+{% block branding %}
+    <div id="branding">
+        <h1 id="site-name"><a>HealthNet Login</a></h1>
+    </div>
+{% endblock %}
+{% block extrastyle %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'admin/css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'healthnet/css/login.css' %}" media="screen">
+    <style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% for error in form_errors %}
+        <div class="alert alert-danger">
+            <div class="margin-left">
+                <span>{{error}}</span>
+            </div>
+        </div>
+    {% endfor %}
+
+    <form action="" enctype="multipart/form-data" method="post" id="loginform">{% csrf_token %}
+        <table  class="margin-bottom">
+            <tbody>
+                <tr>
+                    <td style="border-bottom: 0px; padding-top: 15px;">
+                        <label for="email">E-mail Address: </label>
+                    </td>
+                    <td style="border-bottom: 0px;">
+                        <input type="text" id="email" name="email" placeholder="user@health.net"
+                value="{{ email }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 0px; padding-top: 15px;">
+                        <label for="password">Password: </label>
+                    </td>
+                    <td style="border-bottom: 0px;">
+                        <input type="password" id="password" name="password" placeholder="123456">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="">
+            <input type="submit" value="Log In" class="btn-primary"
+                   style="background: #2196F3;">
+        </div>
+    </form>
+{% endblock %}

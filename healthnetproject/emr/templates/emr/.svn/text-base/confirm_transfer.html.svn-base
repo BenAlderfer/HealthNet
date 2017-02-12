@@ -1,0 +1,29 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Accept Transfer?</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/just_brand_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <legend>
+            <h2>Confirm Transfer?</h2>
+        </legend>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom">
+            <span>Do you want to accept {{ patient }} as your transfer?</span>
+        </div>
+        <div>
+            <a class="btn btn-danger margin-right margin-left" onclick="$('#submitNo').trigger('click');">No</a>
+            <a class="btn btn-primary" onclick="$('#submitYes').trigger('click');">Yes</a>
+        </div>
+    </div>
+    <form action="" enctype="multipart/form-data" method="post" id="TransferConfirmForm">{% csrf_token %}
+        <input name="accept_decline" value="accept" style="display: none;"/>
+        <input type="submit" value="Submit" id="submitYes" class="btn btn-primary" style="display: none;">
+    </form>
+        <form action="" enctype="multipart/form-data" method="post" id="TransferDenyForm">{% csrf_token %}
+        <input name="accept_decline" value="decline" style="display: none;"/>
+        <input type="submit" value="Submit" id="submitNo" class="btn btn-primary" style="display: none;">
+    </form>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Patient Directory</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <legend><h1>Patient Directory</h1></legend>
+
+        <div class="row">
+        <form action="" enctype="multipart/form-data" method="post" id="filter">{% csrf_token %}
+              <fieldset>
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                      <label for="doctor">Doctor: </label>
+                        <select class="form-control" id="doctor" name="doctor" {% if is_dr %}disabled{% endif %}>
+                            {% if is_dr %}
+                                <option value="{{ user.pk }}">{{ user.first_name }} {{ user.last_name }}</option>
+                            {% else %}
+                            <option value=""> -- All -- </option>
+                            {% for doctor in doctor_list %}
+                                <option value="{{ doctor.pk }}">{{ doctor.first_name }} {{ doctor.last_name }}</option>
+                            {% empty %}
+                                <option value="">No Doctors are available.</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                      <label for="hospital">Hospital: </label>
+                        <select class="form-control" id="hospital" name="hospital">
+                            <option value=""> -- All -- </option>
+                            {% for hospital in hospital_list %}
+                                <option value="{{ hospital.pk }}">{{ hospital }}</option>
+                            {% empty %}
+                                <option value="">No Hospitals are available.</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <label for="contains">Name Contains: </label>
+                        <input style="width: 100%;" type="text" id="contains" name="contains"
+                               title="Name contains" minlength="1" maxlength="20">
+                   </div>
+              </fieldset>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <input type="submit" value="Filter" class="btn btn-primary margin-top">
+            </div>
+        </form>
+        </div>
+        {% if search_string %}
+        <div class="row">
+            <div class="col-lg-12">
+                <b>Filtered</b><br/>{{search_string}}
+            </div>
+        </div>
+        {% endif %}
+
+    <table class="alternating-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Hospital</th>
+                    <th>Primary Doctor</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Electronic Medical Record</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for patient in patient_list %}
+                <tr>
+                    <td><a href="/patient/{{patient.pk}}">{{patient.first_name}} {{patient.last_name}}</a></td>
+                    <td>{{patient.hospital}}</td>
+                    <td><a href="/doctor/{{patient.dr.pk}}">{{patient.dr.first_name}} {{patient.dr.last_name}}</a></td>
+                    <td>{{patient.phone}}</td>
+                    <td>{{patient.address}}</td>
+                    <td><a href="/emr/{{patient.pk}}">View</a></td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

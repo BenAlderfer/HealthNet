@@ -1,0 +1,379 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>HealthNet Registration</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/just_brand_nav.html" %}
+{% endblock %}
+{% block content %}
+    {% load staticfiles %}
+    <link rel='stylesheet' href="{% static 'users/css/jquery.steps.css' %}"/>
+    <style>
+        .wizard > .content {
+            min-height: 16em;
+        }
+        .btn, input[type="radio"] {
+            display: inline-block !important;
+        }
+    </style>
+
+    <!-- cancel modal -->
+    <div class="modal fade" id="cancel_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Cancel registration</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to cancel registration? All information entered will be lost.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#cancel_modal').modal('hide'); location.href='/healthnet/';">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="error_messages"></div>
+
+    <div class="card">
+        <h2>Register For HealthNet</h2>
+
+        <form action="" enctype="multipart/form-data" method="post" id="PatientForm">{% csrf_token %}
+            <!-- Personal section -->
+            <h3>Name</h3>
+            <section class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="first_name">First Name: </label>
+                    <input type="text" id="first_name" name="first_name"
+                           placeholder="First Name" required maxlength="35">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="last_name">Last Name: </label>
+                    <input type="text" id="last_name" name="last_name"
+                           placeholder="Last Name" required maxlength="35">
+                </div>
+            </section>
+            <h3>Insurance</h3>
+            <section class="row">
+                <div class="col-xs-12">
+                    <label for="insurance_num">Insurance:</label>
+                    <input type="text" id="insurance_num" name="insurance_num"
+                           placeholder="ABC123457890" required
+                           pattern="^[a-zA-Z]{1}[a-zA-Z0-9]{12}" maxlength="13">
+                            {# ^ regex pattern to match insurance format #}
+                </div>
+            </section>
+
+            <h3>Email</h3>
+            <section class="row">
+                <div class="col-xs-12">
+                    <label for="email">Email: </label>
+                    <input type="email" id="email" name="email" placeholder="Email"
+                           required maxlength="255">
+                </div>
+            </section>
+
+            <h3>Password</h3>
+            <section class="row">
+                <h5 style="margin-top: -10px;">Password must be at least 8 characters</h5>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" name="password"
+                           placeholder="Password" required minlength="8">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="password_confirm">Confirm Password: </label>
+                    <input type="password" id="password_confirm"
+                           name="password_confirm" placeholder="Confirm Password"
+                           required minlength="8">
+                </div>
+            </section>
+
+            <h3>Birthdate</h3>
+            <section class="row">
+                <div class="col-xs-12">
+                    <label for="birthdate">Birth Date:</label>
+                    <input type="date" id="birthdate" name="birthdate"
+                           min="1850-12-01" max="1998-12-01" value="1998-12-01" required>
+                </div>
+            </section>
+
+            <h3>Sex & Gender</h3>
+            <section class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="row" style="margin-bottom: 5px;">
+                        <p style="font-weight: bold; margin-left: 10px;">Sex:</p>
+                    </div>
+                    <div class="row">
+                        <label class="radio_desc">
+                            <input type="radio" id="sex_male"
+                                    name="sex" value="M" required> Male
+                        </label>
+                        <label class="radio_desc">
+                            <input type="radio" id="sex_female"
+                                   name="sex" value="F" required> Female
+                        </label>
+                        <label class="radio_desc">
+                            <input type="radio" id="sex_inter"
+                                   name="sex" value="I" required> Intersex
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="gender">Gender (Optional): </label>
+                    <input type="text" id="gender" name="gender"
+                           placeholder="Gender" maxlength="10">
+                </div>
+            </section>
+            <!-- /Personal Section -->
+            <!-- Hospital Section -->
+            <h3>Hospital & Doctor</h3>
+            <section class="row">
+                 <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="hospital">Select Hospital:</label>
+                    <select class="form-control margin-bottom" id="hospital" name="hospital" required>
+                        {% for hospital in hospital_list %}
+                            <option value="{{ hospital.pk }}">{{ hospital }}</option>
+                        {% empty %}
+                            <option>No Hospitals are available.</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="dr">Select Doctor:</label>
+                    <select class="form-control margin-bottom" id="dr" name="dr" required>
+                        {% for hospital in hospital_list %}
+                            {% for doctor in hospital.doctors_list.all %}
+                                <option value="{{ doctor.pk }}" class="hospital_{{ hospital.pk }}">{{ doctor }}</option>
+                            {% empty %}
+                                <option>No Doctors are available.</option>
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </section>
+            <!-- /Hospital Section -->
+
+            <h3>Contact Information (Optional)</h3>
+            <section class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="phone">Phone Number: </label>
+                    <input type="text" id="phone" name="phone" minlength="14" maxlength="14"
+                           class="phone-number" placeholder="Phone Number">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="address">Address: </label>
+                    <input type="text" id="address" name="address" minlength="10" maxlength="200"
+                           placeholder="1600 Penn. Ave, Washington, D.C.">
+                </div>
+            </section>
+
+            <!-- Emergency Contact Section -->
+            <h3>Emergency Contact (Optional)</h3>
+            <section class="row">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <label for="e_first_name">Contact's First Name: </label>
+                        <input type="text" id="e_first_name"
+                               name="e_first_name" placeholder="Contact's First Name"
+                               maxlength="35">
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <label for="e_last_name">Contact's Last Name: </label>
+                        <input type="text" id="e_last_name"
+                               name="e_last_name" placeholder="Contact's Last Name"
+                               maxlength="35">
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <label for="e_phone">Contact's Phone Number: </label>
+                        <input type="text" id="e_phone" name="e_phone" minlength="14" maxlength="14"
+                               pattern="^\([0-9]{3}\) [0-9]{3}-[0-9]{4}"
+                               placeholder="Contact's Phone Number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="e_contact">Or, select a user from the system:</label>
+                        <select class="form-control" id="e_contact" name="e_contact">
+                            <option></option>
+                            {% for user in patient_list %}
+                                <option value="{{ user.pk }}">{{ user.first_name }} {{ user.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </section>
+            <!-- /Emergency Contact Section -->
+            <!-- Medical Information Section -->
+            <h3>Medical Information (Optional)</h3>
+            <section class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="height">Height (in): </label>
+                    <input type="number" step="any" id="height" name="height"
+                           placeholder="Height (in)" min="1" max="125">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="weight">Weight: </label>
+                    <input type="number" step="any" id="weight" name="weight"
+                           placeholder="Weight" min="1" max="2000">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="cholesterol">Cholesterol: </label>
+                    <input type="number" step="any" id="cholesterol"
+                           name="cholesterol" placeholder="Cholesterol"
+                           min="1" max="400">
+                </div>
+            </section>
+            <h3>Medical Information (Optional)</h3>
+            <section class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="heart_rate">Heart Rate: </label>
+                    <input type="number" id="heart_rate" name="heart_rate"
+                           placeholder="Heart Rate" min="20" max="300">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <label for="blood_pressure_str">Blood Pressure (SP/DP): </label>
+                    <input type="text" id="blood_pressure_str" name="blood_pressure_str"
+                           placeholder="Blood Pressure (SP/DP)"
+                           minlength="5" maxlength="5" pattern="^[0-9]{2}/[0-9]{2}">
+                </div>
+            </section>
+            <!-- /Medical Information Section -->
+
+            <h3>Complete</h3>
+            <section>
+                <h3>Your information is filled out and you are now ready to start.
+                    Please review your information and press 'Finish' to complete registration.</h3>
+            </section>
+        </form>
+    </div>
+{% endblock %}
+{% block other_scripts %}
+    <script src="{% static 'users/js/js.cookie.js' %}"></script>
+    <script src="{% static 'users/js/jquery.validate.js' %}"></script>
+    <script src="{% static 'users/js/jquery-validate-additional-methods.min.js' %}"></script>
+    <script src="{% static 'users/js/jquery.steps.js' %}"></script>
+    <script src="{% static 'users/js/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'users/js/patient-register-ajax.js' %}"></script>
+    <script>
+        $().ready(function () {
+            //override enter key
+            $(document.body).keydown(function(e){
+               if (e.keyCode === 13) { //13 = enter key
+                   $('#PatientForm').steps('next'); //advance to next step
+               }
+            });
+
+            //custom class/validator for phone numbers
+            $.validator.addMethod("phone-number", function(value, element) {
+                //masks must be here to work
+                $("#phone").mask("(999) 999-9999");
+                $("#e_phone").mask("(999) 999-9999");
+
+                return this.optional(element) || /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}/.test(value);
+            }, "Please enter your phone number in the format \"(999) 999-9999\"");
+
+            //paginate form
+            $("#PatientForm").show().steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                transitionEffect: "fade",
+                autoFocus: true,
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    // always allow going back
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+
+                    var form = $(this);
+                    form.validate().settings.ignore = ":disabled,:hidden";
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    create_post();
+                }
+            }).validate({ //validate form
+                 onsubmit: true,
+
+                rules: {
+                    first_name: "required",
+                    last_name: "required",
+                    insurance: {
+                        required: true,
+                        minlength: 13,
+                        maxlength: 13,
+                        pattern: /^[a-zA-Z]{1}[a-zA-Z0-9]{12}/
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    password_confirm: {
+                        required: true,
+                        minlength: 8,
+                        equalTo: "#password"
+                    },
+                    birthdate: {
+                        required: true,
+                        date: true
+                    },
+                    sex: "required",
+                    hospital: "required",
+                    doctor: "required"
+                },
+                messages: {
+                    first_name: "Please enter your first name",
+                    last_name: "Please enter your last name",
+                    insurance_num: "Please enter your 13 character insurance, starting with a letter",
+                    email: "Please enter your email",
+                    password: "Please enter your password",
+                    password_confirm: "Please confirm your password",
+                    birthdate: "Please enter a birth date at least 18 years ago",
+                    address: "Please enter a valid address",
+                    sex: "Please select your biological sex",
+                    hospital: "Please select your hospital",
+                    dr: "Please select your doctor"
+                }
+            });
+
+            //This filters doctors by hospital
+            function filterDoctors(hospital_num) {
+                if (hospital_num==null){
+                    hospital_num="-999"
+                }
+                $('#dr').val("-999");
+                var doctor_options=$('#dr').children();
+                for(var i=0; i<doctor_options.length; i++){
+                    if($(doctor_options[i]).hasClass(hospital_num)){
+                        $(doctor_options[i]).css('display','inherit');
+                    }
+                    else{
+                        $(doctor_options[i]).css('display','none');
+                    }
+                }
+            }
+            filterDoctors('hospital_'+$('#hospital').val());
+
+            $('#hospital').change(function () {
+                filterDoctors('hospital_'+$('#hospital').val())
+            });
+
+            //add cancel button
+            $( "[aria-label='Pagination']" ).prepend("<li><div class=\"btn btn-danger\" " +
+                    "data-toggle=\"modal\" data-target=\"#cancel_modal\">Cancel</div></li>");
+
+            //style premade buttons
+            $( "[role='menuitem']" ).addClass("btn");
+            $( "[role='menuitem']" ).css("padding", "10px");
+        });
+    </script>
+{% endblock %}

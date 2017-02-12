@@ -1,0 +1,49 @@
+{% extends 'healthnet/dashboard.html' %}
+{% block dashboard-info %}
+    <!-- approve modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confirm approval</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to approve this nurse?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="$('#modal').modal('hide'); $('#ActiveForm').submit();">Approve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="doctor_list" class="card nurse-doctors">
+        <h2>Doctors</h2>
+        {% if doctor_list %}
+            <ul>
+                {% for doctor in doctor_list %}
+                    <li class="margin-left"><a href="/doctor/{{ doctor.id }}">{{ doctor.last_name }}, {{ doctor.first_name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You are not assigned to any Doctors right now.</p>
+        {% endif %}
+    </div>
+
+    {% if isadmin %}
+        <div class="approval-card">
+           <div id="active">
+               <form action="" enctype="multipart/form-data" method="post" id="ActiveForm">{% csrf_token %}
+                    <label for="approve" class="">Approve Nurse?</label>
+                    <button type="button" class="btn btn-primary margin-left" id="approve"
+                            data-toggle="modal" data-target="#modal">Approve</button>
+                </form>
+           </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

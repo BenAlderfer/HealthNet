@@ -1,0 +1,22 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>HealthNet</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/just_brand_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 card">
+            <section id="message-block" class="margin-bottom">
+                <p>CSV information uploaded successfully.</p>
+            </section>
+            <a href="/users/upload" class="btn btn-primary">Return to Upload Page</a>
+            <a href="/healthnet" class="btn btn-primary">Return to Dashboard</a>
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+{% endblock %}

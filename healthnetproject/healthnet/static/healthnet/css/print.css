@@ -1,0 +1,29 @@
+* {
+	background:white;
+	color:black;
+	font-family:times,serif;
+	text-decoration:none;
+}
+
+/* hide nav bar, media, captions */
+.navbar, img, .caption {
+	display:none;
+}
+
+footer {
+	margin-top:30pt;
+}
+
+/* don't print buttons */
+.btn {
+    display: none;
+}
+
+#datefilter{
+	display: none;
+}
+
+/*don't display link to the emr*/
+.emr_link {
+	display: none;
+}

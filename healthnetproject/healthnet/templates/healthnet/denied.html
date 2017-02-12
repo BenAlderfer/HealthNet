@@ -1,0 +1,25 @@
+{% extends 'healthnet/base.html' %}
+{% block title %}
+    <title>Permission Denied</title>
+{% endblock %}
+{% block nav %}
+    {% include "healthnet/user_nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 card">
+            <section id="warning" class="margin-bottom">
+                <legend><h1>Oops, you weren't supposed to go there.</h1></legend>
+                <p>You're seeing this page because somehow you tried to access a page that
+                    you don't have permission to view. Don't worry, you're not in
+                    trouble. Just hit the back button to get back to
+                    where you're supposed to be.</p>
+            </section>
+            <button onclick="history.back();" class="btn btn-primary">Back</button>
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+{% endblock %}
