@@ -1,13 +1,8 @@
 # HealthNet 
 
-  _    _            _ _   _     _   _      _
- | |  | |          | | | | |   | \ | |    | |
- | |__| | ___  __ _| | |_| |__ |  \| | ___| |_
- |  __  |/ _ \/ _` | | __| '_ \| . ` |/ _ \ __|
- | |  | |  __/ (_| | | |_| | | | |\  |  __/ |_
- |_|  |_|\___|\__,_|_|\__|_| |_|_| \_|\___|\__|
+This was a 2nd year class project meant to simulate the development of a real healthcare system from requirements to deployment.
 
-"Your Online Healthcare Management System" (c)
+"Your Online Healthcare Management System"
 
 ReadMe v2.0f for Product Release 2
 
