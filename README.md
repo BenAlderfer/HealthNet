@@ -2,7 +2,7 @@
 
 This was a 2nd year class project meant to simulate the development of a real healthcare system from requirements to deployment.
 
-__Original customer README below__
+__Original customer README below:__
 
 "Your Online Healthcare Management System"
 
