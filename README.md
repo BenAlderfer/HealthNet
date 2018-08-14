@@ -21,7 +21,7 @@ III.    Pending Features
  VI.    Appendix
 
 
----------- Section I: Installation ----------
+## Section I: Installation
 
 Extract the contents of this .zip archive to the directory from which you wish
 to run your new HealthNet server.
@@ -33,7 +33,7 @@ hospitals and staff. For more complete testing, double-click on add_records.bat
 and enter the names of the provided .CSV files (doctors.csv, nurses.csv,
 patients.csv, emr.csv) when prompted.
 
----------- Section II: Operation   ----------
+## Section II: Operation
 
 __Running HealthNet__
 
@@ -73,7 +73,7 @@ __In This Package__
 
 Accounts included with the default database are as follows:
 
-__Superuser__
+### Superuser
 
 username:   admin
 
@@ -81,7 +81,7 @@ password:   apple.123
 
 ----------
 
-__Hospital Administrators__
+### Hospital Administrators
 
 Name:       Mark Greene
 
@@ -107,7 +107,7 @@ chosen during installation, multiple other users will appear in the system.
 
 ----------
 
-__Doctors__
+### Doctors
 
 Name:       Meredith Grey
 
@@ -139,7 +139,7 @@ Hospitals:  Grey-Sloan Memorial Hospital, County General Hospital
 
 ----------
 
-__Nurses__
+### Nurses
 
 Name:       Carol Hathaway
 
@@ -175,7 +175,7 @@ Hospital:   Grey-Sloan Memorial Hospital
 
 Doctors:    None
 
-__Patients__
+### Patients
 
 Name:       Charlie Abbott
 
@@ -228,7 +228,7 @@ Doctor:     Doug Ross
 
 In addition, a number of medical records will have been added for each patient.
 
------ Section III: Bugs and Disclaimers -----
+## Section III: Bugs and Disclaimers
 
 Bugs:
 
@@ -244,11 +244,11 @@ Disclaimers:
     account, etc.) are not reported until form submission
 
 
--------- Section IV: Pending Features -------
+## Section IV: Pending Features
 
 All system functionality has been implemented.
 
------- Section V: Development Credits -------
+## Section V: Development Credits
 
 Jonathan Kleinfeld
 Team Coordinator
@@ -265,7 +265,7 @@ Design and Development Coordinator
 Tessa Nijssen
 Requirements Coordinator
 
------------ Section VI: Appendix ------------
+## Section VI: Appendix
 
 Documents contained in /~f261-04d/Release-2/ are as follows:
 
