@@ -8,17 +8,17 @@ __Original customer README below:__
 
 Table of Contents:
 
-  I.    [Installation](https://github.com/BenAlderfer/Healthnet#section-i-installation)
+ I. [Installation](https://github.com/BenAlderfer/Healthnet#section-i-installation)
   
- II.    Operation
+ II. [Operation](https://github.com/BenAlderfer/Healthnet#section-ii-operation)
  
-III.    Pending Features
-
- IV.    Bugs and Disclaimers
+ III. [Bugs and Disclaimers](https://github.com/BenAlderfer/Healthnet#section-iii-bugs-and-disclaimers)
  
-  V.    Development Credits
+ IV. [Pending Features](https://github.com/BenAlderfer/Healthnet#section-iv-pending-features)
+ 
+ V. [Development Credits](https://github.com/BenAlderfer/Healthnet#section-v-development-credits)
   
- VI.    Appendix
+ VI. [Appendix](https://github.com/BenAlderfer/Healthnet#section-vi-appendix)
 
 
 ## Section I: Installation
