@@ -1,6 +1,6 @@
 # HealthNet 
 
-This was a 2nd year class project meant to simulate the development of a real healthcare system from requirements to deployment.
+This was a 2nd year class project meant to simulate the development of a real healthcare system from requirements to deployment. Per class requirements, this was written with the Django framework and followed the professor's requirements.
 
 __Original customer README below:__
 
