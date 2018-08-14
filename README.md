@@ -2,6 +2,8 @@
 
 This was a 2nd year class project meant to simulate the development of a real healthcare system from requirements to deployment.
 
+__Original customer README below__
+
 "Your Online Healthcare Management System"
 
 ReadMe v2.0f for Product Release 2
@@ -170,25 +172,18 @@ Disclaimers:
 
 Jonathan Kleinfeld
 Team Coordinator
-jjk2673@rit.edu
 
 John Murray
 Quality Assurance Coordinator
-Coordination Manager
-jpm7003@rit.edu
 
 John Byrne
 Testing Coordinator
-jpb2380@rit.edu
 
 Ben Alderfer
 Design and Development Coordinator
-bda8890@rit.edu
 
 Tessa Nijssen
 Requirements Coordinator
-Testing Liaison
-txn7371@rit.edu
 
 ----------- Section VI: Appendix ------------
 
@@ -206,43 +201,3 @@ Command-line utility:    unzip.exe
 
 We hope you find HealthNet both useful and enjoyable. Feel free to contact
 any of the staff listed above with questions or comments.
-
-Sincerely,
-The HealthNet Team
-D-Train Software Solutions
-
-                                 d888b
-          __,.---"""-.          8888888          .-"""---.,__
-      _.-' ._._._._,_ `"-.      8888888      .-"` _,_._._._. '-._
-,__.-' _/_/_/_/_/_/_/_/_,_`'.    Y888P    .'`_,_\_\_\_\_\_\_\_\_'-.__,
- `'-._/_/_/_/_/_/_/_/_/_/_/,_`"._ dWb _."`_,_\_\_\_\_\_\_\_\_\_\_.-'`
-      '-;-/_/_/_/_/_/_/_/_/_.--. WWWWW .;;,_\_\_\_\_\_\_\_\_\-;-'
-          /_/_/_/_/_/_/_/_//  e \IIIII;;a;;;\_\_\_\_\_\_\_\_\
-            '-/_/_/_/_/_/ /   ,-'IIIII'=;;;;; \_\_\_\_\_\-'
-                /_/_/_/_ /   /   88888   ;;;;; _\_\_\_\
-                    '-/_/|   |   88888   ;;;;;\_\-'
-                          \   \  88888  ;;;;;
-                           '.  '.'888'.;;;;'
-                             '.  '888;;;;'
-                               '. .;;;;'
-                                .;;;;'.
-                              .;;;;8.  '.
-                            .;;;;'888'.  '.
-                           .;;;;  888  \   \
-                           ;;;;   888  |   |
-                           ';;;;  888  /   /
-                            ';;;;.888.'  .'
-                              ';;;;8'  .'
-                                ';'  .'
-                               .'  .;;;.
-                              /   /8\;;;;
-                             /   /888;;;;,
-                             |   |888 ;;;;
-                             \   \888;;;;'
-                              '.  '8;;;;'
-                                '.;;;;'
-                                ;;;;` \
-                               ;;;;8|  |
-                               ';;;8/  /
-                                '-'8'-'
-                                   8
