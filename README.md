@@ -79,6 +79,8 @@ username:   admin
 
 password:   apple.123
 
+----------
+
 __Hospital Administrators__
 
 Name:       Mark Greene
@@ -88,6 +90,8 @@ Username:   greene@health.net
 Password:   apple.123
 
 Hospital:   County General Hospital
+
+----------
 
 Name:       Richard Webber
 
@@ -99,7 +103,9 @@ Hospital:   Grey-Sloan Memorial Hospital
 
 These are all the users initially required to operate HealthNet
 If the option to load additional records from the provided .csv files was
-chosen during installation, multiple other users will appear in the system:
+chosen during installation, multiple other users will appear in the system.
+
+----------
 
 __Doctors__
 
@@ -111,6 +117,8 @@ Password:   apple.123
 
 Hospitals:  Grey-Sloan Memorial Hospital
 
+----------
+
 Name:       Doug Ross
 
 Username:   ross@health.net
@@ -119,6 +127,8 @@ Password:   apple.123
 
 Hospitals:  County General Hospital
 
+----------
+
 Name:       Gregory House
 
 Username:   house@health.net
@@ -126,6 +136,8 @@ Username:   house@health.net
 Password:   apple.123
 
 Hospitals:  Grey-Sloan Memorial Hospital, County General Hospital
+
+----------
 
 __Nurses__
 
@@ -139,6 +151,8 @@ Hospital:   County General Hospital
 
 Doctors:    Meredith Grey, Gregory House
 
+----------
+
 Name:       Samantha Taggart
 
 Username:   taggart@health.net
@@ -150,6 +164,8 @@ Hospital:   County General Hospital
 Doctors:    Meredith Grey
 
 Name:       Olivia Harper
+
+----------
 
 Username:   harper@health.net
 
@@ -171,6 +187,8 @@ Hospital:   Grey-Sloan Memorial Hospital
 
 Doctor:     Meredith Grey
 
+----------
+
 Name:       Ruth Bennett
 
 Username:   bennett@health.net
@@ -183,6 +201,8 @@ Doctor:     Gregory House
 
 Notes:      This patient is initially missing some contact information and
             will be required to add it before scheduling any appointments.
+            
+----------
 
 Name:       Carla Reece
 
@@ -193,6 +213,8 @@ Password:   apple.123
 Hospital:   County General Hospital
 
 Doctor:     Gregory House
+
+----------
 
 Name:       Al Boulet
 
