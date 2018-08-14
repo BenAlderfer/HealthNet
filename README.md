@@ -6,8 +6,6 @@ __Original customer README below:__
 
 "Your Online Healthcare Management System"
 
-ReadMe v2.0f for Product Release 2
-
 Table of Contents:
 
   I.    Installation
