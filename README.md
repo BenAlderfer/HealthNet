@@ -8,7 +8,7 @@ __Original customer README below:__
 
 Table of Contents:
 
-  I.    Installation
+  I.    [Installation](https://github.com/BenAlderfer/Healthnet#section-i-installation)
   
  II.    Operation
  
