@@ -9,10 +9,15 @@ __Original customer README below:__
 Table of Contents:
 
   I.    Installation
+  
  II.    Operation
+ 
 III.    Pending Features
+
  IV.    Bugs and Disclaimers
+ 
   V.    Development Credits
+  
  VI.    Appendix
 
 
@@ -30,7 +35,8 @@ patients.csv, emr.csv) when prompted.
 
 ---------- Section II: Operation   ----------
 
-==== Running HealthNet ====
+__Running HealthNet__
+
 All server operations are conducted from the /healthnetproject directory.
 
 To execute the server, double-click on "run.bat". It can then be viewed in any
@@ -42,9 +48,11 @@ Superusers should access the administrator interface at "localhost:8000/admin/".
 In the event that the system database (healthnet.db) is deleted, it can be
 recreated by double-clicking on "remake_db.bat", though all information will still
 be lost.
-===========================
 
-====== User Accounts ======
+----------
+
+__User Accounts__
+
 Users may be registered at localhost:8000/users/register_patient/ and /register_staff/
 All doctor and nurse accounts must be approved by the hospital's administrator,
 and hospital administrator accounts must be approved by a superuser.
@@ -58,24 +66,35 @@ administrators may create entries for hospitals.
 For data integrity reasons, if users are to be removed from the system, a system
 administrator should deactivate their accounts instead of deleting them. This
 prevents any possible issues based on missing database dependencies.
-===========================
 
-===== In This Package =====
+----------
+
+__In This Package__
+
 Accounts included with the default database are as follows:
 
 __Superuser__
+
 username:   admin
+
 password:   apple.123
 
 __Hospital Administrators__
+
 Name:       Mark Greene
+
 Username:   greene@health.net
+
 Password:   apple.123
+
 Hospital:   County General Hospital
 
 Name:       Richard Webber
+
 Username:   webber@health.net
+
 Password:   apple.123
+
 Hospital:   Grey-Sloan Memorial Hospital
 
 These are all the users initially required to operate HealthNet
@@ -83,65 +102,106 @@ If the option to load additional records from the provided .csv files was
 chosen during installation, multiple other users will appear in the system:
 
 __Doctors__
+
 Name:       Meredith Grey
+
 Username:   grey@health.net
+
 Password:   apple.123
+
 Hospitals:  Grey-Sloan Memorial Hospital
 
 Name:       Doug Ross
+
 Username:   ross@health.net
+
 Password:   apple.123
+
 Hospitals:  County General Hospital
 
 Name:       Gregory House
+
 Username:   house@health.net
+
 Password:   apple.123
+
 Hospitals:  Grey-Sloan Memorial Hospital, County General Hospital
 
 __Nurses__
+
 Name:       Carol Hathaway
+
 Username:   hathaway@health.net
+
 Password:   apple.123
+
 Hospital:   County General Hospital
+
 Doctors:    Meredith Grey, Gregory House
 
 Name:       Samantha Taggart
+
 Username:   taggart@health.net
+
 Password:   apple.123
+
 Hospital:   County General Hospital
+
 Doctors:    Meredith Grey
 
 Name:       Olivia Harper
+
 Username:   harper@health.net
+
 Password:   apple.123
+
 Hospital:   Grey-Sloan Memorial Hospital
+
 Doctors:    None
 
 __Patients__
+
 Name:       Charlie Abbott
+
 Username:   abbott@health.net
+
 Password:   apple.123
+
 Hospital:   Grey-Sloan Memorial Hospital
+
 Doctor:     Meredith Grey
 
 Name:       Ruth Bennett
+
 Username:   bennett@health.net
+
 Password:   apple.123
+
 Hospital:   Grey-Sloan Memorial Hospital
+
 Doctor:     Gregory House
+
 Notes:      This patient is initially missing some contact information and
             will be required to add it before scheduling any appointments.
 
 Name:       Carla Reece
+
 Username:   reece@health.net
+
 Password:   apple.123
+
 Hospital:   County General Hospital
+
 Doctor:     Gregory House
 
 Name:       Al Boulet
+
 Username:   boulet@health.net
+
 Password:   apple.123
+
 Hospital:   County General Hospital
+
 Doctor:     Doug Ross
 
 In addition, a number of medical records will have been added for each patient.
@@ -151,7 +211,7 @@ In addition, a number of medical records will have been added for each patient.
 Bugs:
 
 *   No server bugs are known to exist at this time. If any bugs are uncovered,
-    please send a bug report to Tessa Nijssen at txn7371@rit.edu. Thank you!
+    please send a bug report to Tessa Nijssen.
 
 Disclaimers:
 
@@ -164,7 +224,7 @@ Disclaimers:
 
 -------- Section IV: Pending Features -------
 
-*   All system functionality has been implemented.
+All system functionality has been implemented.
 
 ------ Section V: Development Credits -------
 
@@ -185,16 +245,20 @@ Requirements Coordinator
 
 ----------- Section VI: Appendix ------------
 
-Documents contained in /~f261-04d/Release-2/
-are as follows:
+Documents contained in /~f261-04d/Release-2/ are as follows:
 
 Requirements document:   Requirements-HealthNet.pdf
+
 Design document:         Design.pdf
+
 Test plan spreadsheet:   TestPlanTracker.xlsx
+
 Readme:                  README.txt
 
 Project source package:  Healthnet.zip
+
 Project installer file:  HealthNet-Turnkey.bat
+
 Command-line utility:    unzip.exe
 
 We hope you find HealthNet both useful and enjoyable. Feel free to contact
