@@ -250,19 +250,19 @@ All system functionality has been implemented.
 
 ## Section V: Development Credits
 
-Jonathan Kleinfeld
+#### Jonathan Kleinfeld
 Team Coordinator
 
-John Murray
+#### John Murray
 Quality Assurance Coordinator
 
-John Byrne
+#### John Byrne
 Testing Coordinator
 
-Ben Alderfer
+#### Ben Alderfer
 Design and Development Coordinator
 
-Tessa Nijssen
+#### Tessa Nijssen
 Requirements Coordinator
 
 ## Section VI: Appendix
